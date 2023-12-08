@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../styles/settings.css">
+    <title>Document</title>
+</head>
+<body>
+    <section id="sidebar">
+        <a href="#" class="brand">
+			<img src="tk_icon.png" alt="tk_icon">
+			<span class="text"></span>
+		</a>
+        <ul class="side-menu top">
+            <li>
+				<a href="index.html">
+					<i class='bx bx-home' ></i>
+					<span class="text">Home</span>
+				</a>
+			</li>
+            <li>
+				<a href="settings.html">
+					<i class='bx bx-cog' ></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+            <li>
+				<a href="add_expense.htm">
+					<i class='bx bx-wallet-alt' ></i>
+					<span class="text">New Expense</span>
+				</a>
+			</li>
+            <li>
+				<a href="#">
+					<i class='bx bx-wallet-alt' ></i>
+					<span class="text">New Expense</span>
+				</a>
+			</li>
+            <li>
+				<a href="#">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">Analytics</span>
+				</a>
+			</li>
+        </ul>
+        <ul class="side-menu">
+			<li>
+				<a href="#">
+					<i class='bx bxs-cog' ></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+    </section>
+
+    <section id="Rightbar">
+        <div>
+            <p>Categories</p>
+        </div>
+        <ul class="prices">
+            <li>
+                <i class='bx bx-camera-movie'></i>
+                <span class="text">Camera</span>
+                <span class="date">15-09-2023</span>
+            </li>
+            <li>
+                <i class='bx bxs-t-shirt' ></i>
+                <span class="text">Shirt</span>
+                <span class="date">15-09-2023</span>
+            </li>
+            <li>
+                <i class='bx bx-headphone' ></i>
+                <span class="text">Headphone</span>
+                <span class="date">15-09-2023</span>
+            </li>
+        </ul>
+    </section>
+
+    <section id="content">
+        <nav>
+            <i class='bx bx-menu' ></i>
+            <form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="notification">
+                <i class='bx bxs-bell' ></i>
+				<span class="num">2</span>
+            </a>
+            <a href="#" class="profile">
+				<img src="user.jpg">
+			</a>
+        </nav>
+
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Settings</h1>
+                    <ul class="breadcrumb">
+						<li>
+							<p>Update your profile and preferences to personalise your experince</p>
+						</li>
+					</ul>
+                </div>
+                <div class="profile-picture">
+                    <img src="tk_icon.png" alt="profile pic">
+                </div>
+                <div class="profile-picture-text">
+                    <p class="pp">Profile Picture PNG, JPEG</p>
+                    <a href="#" class="upload">
+                        <i class='bx bxs-cloud-download'></i>
+                        <span class="text">Upload</span>
+                    </a>
+                </div>
+            </div>
+            <hr>
+            <div class="name-title">
+                <div class="name">
+                    <p>First name</p>
+                    <input type="text" class="name" placeholder="First name">
+                </div>
+                <div class="name">
+                    <p>Last name</p>
+                    <input type="text" class="name" placeholder="Last name">
+                </div>
+            </div>
+            <hr>
+            <div class="email-title">
+                <div class="mail">
+                    <p>Email</p>
+                    <input type="email" class="name" placeholder="Email">
+                    <button class="email-button">
+                        <p class="plus-mail">+</p>
+                        <p class="add-mail">Add email</p>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </section>
+
+    <script src="../scripts/settings.js"></script>
+</body>
+</html>
