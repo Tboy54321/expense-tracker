@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="../styles/settings.css">
+    <link rel="stylesheet" href="../static/settings.css">
     <title>Document</title>
 </head>
 <body>
@@ -109,10 +109,10 @@
                 <div class="left">
                     <h1>Settings</h1>
                     <ul class="breadcrumb">
-						<li>
-							<p>Update your profile and preferences to personalise your experince</p>
-						</li>
-					</ul>
+                        <li>
+                            <p>Update your profile and preferences to personalize your experience</p>
+                        </li>
+                    </ul>
                 </div>
                 <div class="profile-picture">
                     <img src="tk_icon.png" alt="profile pic">
@@ -126,20 +126,55 @@
                 </div>
             </div>
             <hr>
+    
+            <!-- Update Password Section -->
+            <div class="section password-section">
+                <h2>Change Password</h2>
+                <!-- Input fields for current password, new password, and confirm new password -->
+                <label for="current-password">Current Password:</label>
+                <input type="password" id="current-password" name="current-password">
+    
+                <label for="new-password">New Password:</label>
+                <input type="password" id="new-password" name="new-password">
+    
+                <label for="confirm-password">Confirm New Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password">
+    
+                <!-- Add a "Save Changes" button to update the password -->
+                <button>Save Changes</button>
+            </div>
+            <hr>
+    
+            <!-- Account Deactivation Section -->
+            <div class="section deactivate-account-section">
+                <h2>Account Deactivation</h2>
+                <!-- Provide an option to deactivate the account with a confirmation step -->
+                <button>Deactivate Account</button>
+            </div>
+            <hr>
+    
+            <!-- Additional Sections... -->
+    
             <div class="name-title">
+                <!-- Update First Name and Last Name -->
                 <div class="name">
-                    <p>First name</p>
+                    <p>First name:</p>
                     <input type="text" class="name" placeholder="First name">
                 </div>
                 <div class="name">
-                    <p>Last name</p>
+                    <p>Last name:</p>
                     <input type="text" class="name" placeholder="Last name">
                 </div>
+<!--                <button style="display: block">-->
+<!--                    <p>Save</p>-->
+<!--                </button>-->
             </div>
             <hr>
+    
+            <!-- Update Email Section -->
             <div class="email-title">
                 <div class="mail">
-                    <p>Email</p>
+                    <p>Email:</p>
                     <input type="email" class="name" placeholder="Email">
                     <button class="email-button">
                         <p class="plus-mail">+</p>
@@ -147,9 +182,10 @@
                     </button>
                 </div>
             </div>
+    
         </main>
     </section>
 
-    <script src="../scripts/settings.js"></script>
+    <script src="../static/settings.js"></script>
 </body>
 </html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/feedback.css">
+    <title>Feedback/Support</title>
+    <style>
+        /* Your existing styles can be included here */
+
+        body {
+            font-family: var(--poppins);
+            background: var(--grey);
+            overflow-x: hidden;
+        }
+
+        header {
+            height: 56px;
+            background: var(--light);
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            grid-gap: 24px;
+            font-family: var(--lato);
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            color: var(--dark);
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        main {
+            width: 85%;
+            padding: 36px 24px;
+            font-family: var(--poppins);
+            max-height: calc(100vh - 56px);
+            overflow-y: auto;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--grey);
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        button {
+            background-color: var(--blue);
+            color: var(--light);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Feedback/Support</h1>
+    </header>
+
+    <main>
+        <form>
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+
+</body>
+
+</html>
+

@@ -1,0 +1,664 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+:root {
+    --poppins: 'Poppins', sans-serif;
+    --lato: 'Lato', sans-serif;
+
+    --light: #F9F9F9;
+    --blue: #3C91E6;
+    --light-blue: #CFE8FF;
+    --grey: #eee;
+    --dark-grey: #AAAAAA;
+    --dark: #342E37;
+    --red: #DB504A;
+    --yellow: #FFCE26;
+    --light-yellow: #FFF2C6;
+    --orange: #FD7238;
+    --light-orange: #FFE0D3;
+}
+html {
+    overflow-x: hidden;
+}
+body.dark {
+    --light: #0C0C1E;
+    --grey: #060714;
+    --dark: #FBFBFB;
+}
+body {
+    background: var(--grey);
+    overflow-x: hidden;
+}
+/* LEFT SIDEBAR */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 190px;
+    height: 100%;
+    background: var(--light);
+    z-index: 2000;
+    font-family: var(--lato);
+    transition: .3s ease;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+#sidebar .brand {
+    font-size: 24px;
+    font-weight: 700;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    color: var(--blue);
+    position: sticky;
+    top: 0;
+    left: 0;
+    background: var(--light);
+    z-index: 500;
+    padding-bottom: 20px;
+    box-sizing: content-box;
+}
+#sidebar .brand img {
+    width: 35px;
+    display: flex;
+    justify-content: center;
+}
+#sidebar::--webkit-scrollbar {
+    display: none;
+}
+#sidebar.hide {
+    width: 60px;
+}
+#sidebar .side-menu {
+    width: 100%;
+    margin-top: 48px;
+}
+#sidebar .side-menu li {
+    height: 48px;
+    background: transparent;
+    margin-left: 6px;
+    border-radius: 48px 0 0 48px;
+    padding: 4px;
+}
+#sidebar .side-menu li.active {
+    position: relative;
+}
+
+/* #sidebar .side-menu li.active::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: -40px;
+    right: 0;
+    box-shadow: 20px 20px 0 var(--grey);
+    z-index: -1;
+} */
+/* #sidebar .side-menu li.active::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    bottom: -40px;
+    right: 0;
+    box-shadow: 20px -20px 0 var(--grey);
+    z-index: -1;
+} */
+
+#sidebar .side-menu li a {
+    width: 100%;
+    height: 100%;
+    background: var(--light);
+    display: flex;
+    align-items: center;
+    border-radius: 48px;
+    font-size: 16px;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+#sidebar .side-menu.top li.active a {
+    color: var(--black);
+}
+#sidebar.hide .side-menu li a {
+    width: calc(48px - (4px * 2));
+    transition: width .3s ease;
+}
+#sidebar .side-menu li a.logout {
+    color: var(--red);
+}
+#sidebar .side-menu.top li a:hover {
+    background: var(--grey);
+}
+#sidebar .side-menu li a .bx {
+    min-width: calc(60px  - ((4px + 6px) * 2));
+    display: flex;
+    justify-content: center;
+}
+
+#content {
+    position: relative;
+    width: calc(100% - 190px);
+    left: 190px;
+    transition: .3s ease;
+}
+
+#sidebar.hide ~ #content {
+    width: calc(100% - 60px);
+    left: 60px;
+}
+/* LEFT SIDEBAR (ENDING) */
+
+/* RIGHT SIDEBAR */
+#Rightbar {
+    position: fixed;
+    top: 60px;
+    margin-top: -4px;
+    right: 0;
+    width: 190px;
+    height: 100%;
+    background: var(--light);
+    z-index: 2000;
+    font-family: var(--lato);
+    transition: .3s ease;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+#Rightbar div p {
+    color: var(--dark-grey);
+    width: 100%;
+    align-items: center;
+    margin-left: 60px;
+    margin-top: 30px;
+}
+#Rightbar .prices {
+    margin-top: 48px;
+}
+#Rightbar .prices li {
+    display: flex;
+    height: 48px;
+    background: transparent;
+    margin-left: 6px;
+    border-radius: 48px 0 0 48px;
+    padding: 4px;
+    margin-bottom: 12px;
+}
+
+#Rightbar .prices li .bx {
+    font-size: 20px;
+    color: var(--light);
+    padding: 10px;
+    padding-bottom: 30px;
+    background-color: lightgray;
+    border-radius: 30%;
+}
+#Rightbar .prices li .text {
+    color: var(--dark);
+}
+#Rightbar .prices li:nth-child(1) .bx {
+    background-color: var(--yellow);
+}
+#Rightbar .prices li:nth-child(2) .bx {
+    background-color: var(--red);
+}
+#Rightbar .prices li .date {
+    color: red;
+    display: inline-block;
+
+}
+/* #Rightbar .side-menu li a {
+    width: 100%;
+    height: 100%;
+    background: var(--light);
+    display: flex;
+    align-items: center;
+    border-radius: 48px;
+    font-size: 16px;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow-x: hidden;
+} */
+
+/* RIGHT SIDEBAR (ENDING) */
+
+/* PAGE CONTENT */
+#content nav {
+    height: 56px;
+    background: var(--light);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
+    font-family: var(--lato);
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+#content nav a {
+    color: var(--dark);
+}
+#content nav .bx.bx-menu {
+    cursor: pointer;
+    color: var(--dark);
+}
+#content nav form {
+    max-width: 400px;
+    width: 100%;
+    margin-right: auto;
+}
+#content nav form .form-input {
+    display: flex;
+    align-items: center;
+    height: 36px;
+}
+#content nav form .form-input input {
+    flex-grow: 1;
+    padding: 0 16px;
+    height: 100%;
+    border: none;
+    background: var(--grey);
+    border-radius: 36px 0 0 36px;
+    outline: none;
+    width: 100%;
+    color: var(--dark);
+}
+#content nav form .form-input button {
+    width: 36px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--grey);
+    color: var(--light);
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 0 36px 36px 0;
+    cursor: pointer;
+}
+#content nav .notification {
+    font-size: 20px;
+    position: relative;
+}
+#content nav .notification .num {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--light);
+    background: var(--red);
+    color: var(--light);
+    font-weight: 700;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#content nav .profile img {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+#content nav .switch-mode {
+    display: block;
+    min-width: 50px;
+    height: 25px;
+    border-radius: 25px;
+    background: var(--grey);
+    cursor: pointer;
+    position: relative;
+}
+#content nav .switch-mode::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    width: calc(25px - 4px);
+    background: var(--blue);
+    border-radius: 50%;
+    transition: all .4s ease;
+}
+#content nav #switch-mode:checked + .switch-mode::before {
+    left: calc(100% - (25px - 4px) - 2px);
+}
+#content main {
+    width: 85%;
+    padding: 36px 24px;
+    font-family: var(--poppins);
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
+}
+#content main .head-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 16px;
+    flex-wrap: wrap;
+}
+#content main .head-title .left h1 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+#content main .head-title .left .breadcrumb {
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+}
+#content main .head-title .left .breadcrumb li {
+    color: var(--dark);
+}
+#content main .head-title .left .breadcrumb li a {
+    color: var(--dark-grey);
+    pointer-events: none;
+}
+#content main .head-title .left .breadcrumb li a.active {
+    color: var(--blue);
+    pointer-events: unset;
+}
+#content main .head-title .btn-download {
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 36px;
+    background: var(--blue);
+    color: var(--light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 10px;
+    font-weight: 500;
+}
+#content main .box-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 24px;
+    margin-top: 36px;
+}
+#content main .box-info li {
+    padding: 24px;
+    background: var(--light);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
+}
+        #content main .box-info li:nth-child(1) .bx {
+    background: var(--light-blue);
+    color: var(--blue);
+}
+#content main .box-info li:nth-child(2) .bx {
+    background: var(--light-yellow);
+    color: var(--yellow);
+}
+#content main .box-info li:nth-child(3) .bx {
+    background: var(--light-orange);
+    color: var(--orange);
+}
+#content main .box-info li .text h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--dark);
+}
+#content main .box-info li .text p {
+    color: var(--dark);
+}
+/* Add styles specific to the Expense List page */
+
+#content main .expense-list {
+    margin-top: 20px;
+}
+
+#content main .expense-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--light);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#content main .expense-details {
+    display: flex;
+    flex-direction: column;
+}
+
+#content main .expense-details .category {
+    font-size: 18px;
+    color: var(--dark);
+}
+
+#content main .expense-details .date {
+    font-size: 14px;
+    color: var(--dark-grey);
+}
+
+#content main .expense-amount {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--blue);
+}
+
+/* Adjustments for responsiveness */
+@media only screen and (max-width: 768px) {
+    #content main .expense-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #content main .expense-details {
+        margin-bottom: 10px;
+    }
+
+    #content main .expense-amount {
+        margin-top: 10px;
+    }
+}
+
+
+
+#content main .expense-list {
+    margin-top: 30px;
+}
+
+.expense-item {
+    background: var(--light);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.expense-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.category {
+    font-size: 18px;
+    color: var(--dark);
+    font-weight: bold;
+}
+
+.date {
+    font-size: 14px;
+    color: var(--dark-grey);
+}
+
+.expense-amount {
+    font-size: 20px;
+    color: var(--red);
+}
+
+/* Add this to your existing CSS */
+
+.expense-item {
+    /* ... (existing styles) */
+    position: relative;
+}
+
+.expense-details {
+    /* ... (existing styles) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.delete-button i {
+    font-size: 24px; /* Adjust the size as needed */
+    color: var(--dark-grey);
+}
+
+.delete-button:hover {
+    background: #f0f0f0; /* Change background on hover if needed */
+}
+
+#content main .expense-list {
+margin-top: 30px;
+}
+
+.expense-item {
+    background: var(--light);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.expense-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.expense-details p {
+    margin: 0;
+}
+
+.amount {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--orange);
+}
+
+.delete-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.delete-button i {
+    font-size: 24px;
+    color: var(--dark-grey);
+}
+
+.delete-button:hover {
+    background: #f0f0f0;
+}
+
+/* Optional: Add some hover effect for the expense-item */
+.expense-item:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+/* PAGE CONETENT (ENDING) */
+
+
+/* Add these styles to your existing CSS */
+
+.expense-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Add this CSS for the toggle switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--green); /* Change to your preferred color */
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Optional: Style for paid and unpaid expenses */
+.expense-item.paid {
+    border-left: 5px solid var(--green); /* Change to your preferred color */
+}
+
+.expense-item.unpaid {
+    border-left: 5px solid var(--red); /* Change to your preferred color */
+}
+

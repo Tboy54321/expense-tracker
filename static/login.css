@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../static/new_password.css" />
-  <title>Browser</title>
-  <style>
-     @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
         * {
             margin: 0;
             padding: 0;
@@ -76,7 +67,7 @@
         margin-top: 30px;
         }
 
-        .cent-div .email-entry .password1-input {
+        .cent-div .email-entry .email-input {
         color: var(--dark);
         display: block;
         border-radius: 10px;
@@ -225,28 +216,4 @@
         #top-container .mode-switch-container #switch-mode:checked + .switch-mode::before {
             left: calc(100% - (25px - 4px) - 2px);
         }
-
-  </style>
-</head>
-<body>
-    <div id="top-container">
-        <div class="mode-switch-container">
-            <input type="checkbox" id="switch-mode" hidden>
-            <label for="switch-mode" class="switch-mode"></label>
-        </div>
-    </div>
-    <!-- <img src="" alt="Image description" style="width: 100%; height: auto; position: absolute; top: 0; left: 0; z-index: -1;"> -->
-    <div class="cent-div">
-        <h1>Reset your password</h1>
-        <div class="email-entry">
-            <div class="label">New password:</div>
-            <input type="password" class="password1-input" placeholder="password"></input>
-            <div class="label">Confirm Password:</div>
-            <input type="password" class="password-input" placeholder="Confirm your password"></input>
-            <button>Continue</button>
-        </div>
-    </div>
-    <script src="../static/login.js"></script>
-</body>
-
-</html>
+        

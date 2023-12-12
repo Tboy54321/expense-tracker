@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="../static/index.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="../static/expense_list.css">
+    <title>Expense List</title>
     <style>
-         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
         * {
             margin: 0;
             padding: 0;
@@ -61,7 +61,7 @@
             overflow-x: hidden;
             scrollbar-width: none;
         }
-        
+
         #sidebar .brand {
             font-size: 24px;
             font-weight: 700;
@@ -206,13 +206,13 @@
             margin-bottom: 12px;
         }
 
-        #Rightbar .prices li .bx {   
+        #Rightbar .prices li .bx {
             font-size: 20px;
             color: var(--light);
             padding: 10px;
             padding-bottom: 30px;
             background-color: lightgray;
-            border-radius: 30%;    
+            border-radius: 30%;
         }
         #Rightbar .prices li .text {
             color: var(--dark);
@@ -226,7 +226,7 @@
         #Rightbar .prices li .date {
             color: red;
             display: inline-block;
-            
+
         }
         /* #Rightbar .side-menu li a {
             width: 100%;
@@ -240,7 +240,7 @@
             white-space: nowrap;
             overflow-x: hidden;
         } */
-        
+
         /* RIGHT SIDEBAR (ENDING) */
 
         /* PAGE CONTENT */
@@ -349,7 +349,7 @@
             left: calc(100% - (25px - 4px) - 2px);
         }
         #content main {
-            width: 85%;    
+            width: 85%;
             padding: 36px 24px;
             font-family: var(--poppins);
             max-height: calc(100vh - 56px);
@@ -430,7 +430,248 @@
         #content main .box-info li .text p {
             color: var(--dark);
         }
+        /* Add styles specific to the Expense List page */
+
+        #content main .expense-list {
+            margin-top: 20px;
+        }
+
+        #content main .expense-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: var(--light);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #content main .expense-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #content main .expense-details .category {
+            font-size: 18px;
+            color: var(--dark);
+        }
+
+        #content main .expense-details .date {
+            font-size: 14px;
+            color: var(--dark-grey);
+        }
+
+        #content main .expense-amount {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--blue);
+        }
+
+        /* Adjustments for responsiveness */
+        @media only screen and (max-width: 768px) {
+            #content main .expense-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            #content main .expense-details {
+                margin-bottom: 10px;
+            }
+
+            #content main .expense-amount {
+                margin-top: 10px;
+            }
+        }
+
+
+
+        #content main .expense-list {
+            margin-top: 30px;
+        }
+
+        .expense-item {
+            background: var(--light);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .expense-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category {
+            font-size: 18px;
+            color: var(--dark);
+            font-weight: bold;
+        }
+
+        .date {
+            font-size: 14px;
+            color: var(--dark-grey);
+        }
+
+        .expense-amount {
+            font-size: 20px;
+            color: var(--red);
+        }
+
+        /* Add this to your existing CSS */
+
+        .expense-item {
+            /* ... (existing styles) */
+            position: relative;
+        }
+
+        .expense-details {
+            /* ... (existing styles) */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .delete-button i {
+            font-size: 24px; /* Adjust the size as needed */
+            color: var(--dark-grey);
+        }
+
+        .delete-button:hover {
+            background: #f0f0f0; /* Change background on hover if needed */
+        }
+
+        #content main .expense-list {
+    margin-top: 30px;
+}
+
+        .expense-item {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .expense-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .expense-details p {
+            margin: 0;
+        }
+
+        .amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--orange);
+        }
+
+        .delete-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .delete-button i {
+            font-size: 24px;
+            color: var(--dark-grey);
+        }
+
+        .delete-button:hover {
+            background: #f0f0f0;
+        }
+
+        /* Optional: Add some hover effect for the expense-item */
+        .expense-item:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
         /* PAGE CONETENT (ENDING) */
+
+
+        /* Add these styles to your existing CSS */
+
+        .expense-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        /* Add this CSS for the toggle switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--green); /* Change to your preferred color */
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Optional: Style for paid and unpaid expenses */
+        .expense-item.paid {
+            border-left: 5px solid var(--green); /* Change to your preferred color */
+        }
+
+        .expense-item.unpaid {
+            border-left: 5px solid var(--red); /* Change to your preferred color */
+        }
+
+
     </style>
 </head>
 <body>
@@ -447,23 +688,21 @@
 				</a>
 			</li>
             <li>
-<!--				<a href="settings.html">-->
-				<a href={{url_for('settings')}}>
+				<a href="settings.html">
 					<i class='bx bx-cog' ></i>
 					<span class="text">Settings</span>
 				</a>
 			</li>
             <li>
-<!--				<a href="add_expense.htm">-->
-				<a href={{url_for('add_expense')}}>
+				<a href="add_expense.htm">
 					<i class='bx bx-wallet-alt' ></i>
 					<span class="text">New Expense</span>
 				</a>
 			</li>
             <li>
-				<a href={{url_for('expense_list')}}>
+				<a href="#">
 					<i class='bx bx-wallet-alt' ></i>
-					<span class="text">Expense List</span>
+					<span class="text">New Expense</span>
 				</a>
 			</li>
             <li>
@@ -481,7 +720,7 @@
 				</a>
 			</li>
 			<li>
-				<a href={{url_for('login')}} class="logout">
+				<a href="login.html" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
@@ -531,50 +770,77 @@
 				<img src="user.jpg">
 			</a>
         </nav>
-
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Dashboard</h1>
+                    <h1>Expense List</h1>
                     <ul class="breadcrumb">
-						<li>
-							<a href="#">Dashboard</a>
-						</li>
-					</ul>
+                        <li>
+                            <p>View a list of your expenses and transactions. Mark each expense on the sidebar to indicate its paid status.</p>
+                        </li>
+                    </ul>
                 </div>
-                <a href="#" class="btn-download">
-					<i class='bx bxs-cloud-download'></i>
-					<span class="text">Download PDF</span>
-				</a>
             </div>
+            <hr>
 
-            <ul class="box-info">
-				<li>
-					<i class='bx bxs-calendar-check'></i>
-					<span class="text">
-						<h3>1020</h3>
-						<p>New Order</p>
-					</span>
-				</li>
-				<li>
-					<i class='bx bxs-group' ></i>
-					<span class="text">
-						<h3>2834</h3>
-						<p>Visitors</p>
-					</span>
-				</li>
-				<li>
-					<i class='bx bxs-dollar-circle' ></i>
-					<span class="text">
-						<h3>$2543</h3>
-						<p>Total Sales</p>
-					</span>
-				</li>
-			</ul>
+            <!-- Expense List Content -->
+            <div class="expense-list">
+                <!-- Example Expense Item -->
+                <div class="expense-item">
+                    <div class="expense-details">
+                        <span class="category"><i class='bx bx-wallet'></i> Shopping</span>
+                        <span class="date">15-09-2023</span>
+                    </div>
+                    <div class="expense-amount">$50.00</div>
+                    <button class="delete-button">
+                        <i class='bx bx-dots-vertical-rounded'></i>
+                    </button>
+                    <label class="switch">
+                        <input type="checkbox" class="paid-toggle" />
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="expense-item">
+                    <div class="expense-details">
+                        <span class="category"><i class='bx bx-wallet'></i> Shopping</span>
+                        <span class="date">15-09-2023</span>
+                    </div>
+                    <div class="expense-amount">$50.00</div>
+                    <button class="delete-button">
+                        <i class='bx bx-dots-vertical-rounded'></i>
+                    </button>
+                </div>
+                <div class="expense-item">
+                    <div class="expense-details">
+                        <span class="category"><i class='bx bx-wallet'></i> Shopping</span>
+                        <span class="date">15-09-2023</span>
+                    </div>
+                    <div class="expense-amount">$50.00</div>
+                    <button class="delete-button">
+                        <i class='bx bx-trash'></i>
+                    </button>
+                </div>
+                <div class="expense-item">
+                    <div class="expense-details">
+                        <span class="category"><i class='bx bx-wallet'></i> Shopping</span>
+                        <span class="date">15-09-2023</span>
+                    </div>
+                    <div class="expense-amount">$50.00</div>
+                </div>
+                <div class="expense-item">
+                    <div class="expense-details">
+                        <span class="category"><i class='bx bx-wallet'></i> Shopping</span>
+                        <span class="date">15-09-2023</span>
+                    </div>
+                    <div class="expense-amount">$50.00</div>
+                </div>
+                
 
+                
+                </div>
+                
+            </div>
         </main>
     </section>
-
     <script src="../static/index.js"></script>
 </body>
-</html>
