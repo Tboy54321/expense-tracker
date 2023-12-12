@@ -10,7 +10,7 @@ connection = mysql.connector.connect(host='localhost',
 cursor = connection.cursor()
 app = Flask(__name__)
 
-app.secret_key = 'oluwatimothyllll2222'
+app.secret_key = ''
 
 #app.config['MYSQL_HOST'] = 'localhost'
 #app.config['MYSQL_USER'] = 'root'
