@@ -250,8 +250,8 @@
                     <a href="forgot_password.html">Forgot Password?</a>
                 </div>
                 <button type="submit">Continue</button>
-                <p>Don't have an account? <a href="sign_up.html" style="color: green">Sign up</a></p>
-		<div class="msg">{{ msg }}</div>            
+		<p>Don't have an account? <a href="{{ url_for('sign_up') }}" style="color: green">Sign up</a></p>
+		<div class="msg">{{ msg }}</div>
             </div>
         </form>
     </div>

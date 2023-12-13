@@ -238,18 +238,21 @@
     <!-- <img src="" alt="Image description" style="width: 100%; height: auto; position: absolute; top: 0; left: 0; z-index: -1;"> -->
     <div class="cent-div">
         <h1>Create your account</h1>
-        <div class="email-entry">
-            <div class="label">Email</div>
-            <input type="email" class="email-input" placeholder="Enter your email address"></input>
-            <div class="label">Password</div>
-            <input type="password" class="password-input" placeholder="Enter your password"></input>
-            <div class="check">
-                <input class="check-box" type="checkbox" name="" id="">
-                <p>Remember Password</p>
+	<form action="{{url_for('sign_up') }}" method='post'>
+            <div class="email-entry">
+                <div class="label">Email</div>
+                <input type="email" class="email-input" name='email'placeholder="Enter your email address" required></input>
+                <div class="label">Password</div>
+                <input type="password" class="password-input" name='password' placeholder="Enter your password"></input>
+                <div class="check">
+                    <input class="check-box" type="checkbox" name="remember-password" id="">
+                    <p>Remember Password</p>
+                </div>
+                <button type='submit'>Continue</button>
+		<p>Already have an account? <a href="{{url_for('login') }}" style="color: green">Login</a></p>
+		<div class="msg">{{ msg }}</div>
             </div>
-            <button>Continue</button>
-            <p>Already have an account? <a href="login.html" style="color: green">Login</a></p>
-        </div>
+	</form>
     </div>
     <script src="../static/login.js"></script>
 </body>
