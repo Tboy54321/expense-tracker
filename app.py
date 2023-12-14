@@ -25,7 +25,11 @@ app.secret_key = 'oluwatimothyllll2222'
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    if 'loggedin' in session:
+        return render_template('index.html')
+    else:
+        return redirect(url_for('login'))
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -59,6 +63,7 @@ def login():
     return render_template('login.html', msg = msg)
     #return '<h1>WRONG PASSWORD</h1>'
 
+
 @app.route('/signup', methods=['GET', 'POST'])
 def sign_up():
     msg = ''
@@ -88,22 +93,37 @@ def sign_up():
     return render_template('sign_up.html', msg = msg)
 
 
-@app.route('/logout', methods=['GET', 'POST'])
+@app.route('/logout')
 def logout ():
-    return render_template('login.html')
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('email', None)
+    return redirect(url_for('login'))
 
 
 @app.route('/settings')
 def settings():
-    return render_template('settings.html')
+    if 'loggedin' in session:
+        return render_template('settings.html')
+    else:
+        return redirect(url_for('login'))
+
 
 @app.route('/add_expense')
 def add_expense():
-    return render_template('add_expense.htm')
+    if 'loggedin' in session:
+        return render_template('add_expense.htm')
+    else:
+        return redirect(url_for('login'))
+
 
 @app.route('/expense_list')
 def expense_list():
-    return render_template('expense_list.html')
+    if 'loggedin' in session:
+        return render_template('expense_list.html')
+    else:
+        return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
