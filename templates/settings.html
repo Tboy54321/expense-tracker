@@ -9,30 +9,30 @@
 </head>
 <body>
     <section id="sidebar">
-        <a href="#" class="brand">
+        	<a href="#" class="brand">
 			<img src="tk_icon.png" alt="tk_icon">
 			<span class="text"></span>
 		</a>
         <ul class="side-menu top">
-            <li>
+            		<li>
 		    		<a href="{{url_for('home')}}">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
-            <li>
+            		<li>
 		    		<a href="{{url_for('add_expense')}}">
 					<i class='bx bx-wallet-alt' ></i>
 					<span class="text">Add new expense</span>
 				</a>
 			</li>
-            <li>
+            		<li>
 		    		<a href="{{url_for('expense_list')}}">
 					<i class='bx bx-list-ul' ></i>
 					<span class="text">Expense List</span>
 				</a>
 			</li>
-            <li>
+            		<li>
 		    		<a href="{{url_for('settings')}}">
 					<i class='bx bx-cog' ></i>
 					<span class="text">Settings</span>
@@ -122,29 +122,35 @@
             <hr>
     
             <!-- Update Password Section -->
-            <div class="section password-section">
-                <h2>Change Password</h2>
-                <!-- Input fields for current password, new password, and confirm new password -->
-                <label for="current-password">Current Password:</label>
-                <input type="password" id="current-password" name="current-password">
+	    <form action="{{url_for('settings')}}" method='post'>
+            	<div class="section password-section">
+                	<h2>Change Password</h2>
+                	<!-- Input fields for current password, new password, and confirm new password -->
+                	<label for="current-password">Current Password:</label>
+                	<input type="password" id="current-password" name="current-password">
     
-                <label for="new-password">New Password:</label>
-                <input type="password" id="new-password" name="new-password">
+                	<label for="new-password">New Password:</label>
+                	<input type="password" id="new-password" name="new-password">
     
-                <label for="confirm-password">Confirm New Password:</label>
-                <input type="password" id="confirm-password" name="confirm-password">
+                	<label for="confirm-password">Confirm New Password:</label>
+                	<input type="password" id="confirm-password" name="confirm-password">
     
-                <!-- Add a "Save Changes" button to update the password -->
-                <button>Save Changes</button>
-            </div>
+                	<!-- Add a "Save Changes" button to update the password -->
+                	<button type='submit'>Save Changes</button>
+			<div>{{ msg }}</div>
+            	</div>
+	    </form>
             <hr>
     
             <!-- Account Deactivation Section -->
-            <div class="section deactivate-account-section">
-                <h2>Account Deactivation</h2>
-                <!-- Provide an option to deactivate the account with a confirmation step -->
-                <button>Deactivate Account</button>
-            </div>
+	    <form action="{{ url_for('settings') }}" method='post'>
+            	<div class="section deactivate-account-section">
+                	<h2>Account Deactivation</h2>
+                	<!-- Provide an option to deactivate the account with a confirmation step -->
+			<input type='hidden' name='action' value='deactivate_button'>
+                	<button type='submit'>Deactivate Account</button>
+            	</div>
+	    </form>
             <hr>
     
             <!-- Additional Sections... -->
