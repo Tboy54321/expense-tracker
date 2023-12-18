@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask_sqlalchemy import  SQLAlchemy
 #from flask_mysqldb import MySQL
 #import MySQLdb.cursors
 #import MySQLdb.cursors, re, hashlib
@@ -6,14 +7,18 @@ import mysql.connector
 import re
 import hashlib
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_wtf import FlaskForm
+from wtforms import StringField, FloatField, BooleanField, SubmitField, DateField
+from wtforms.validators import DataRequired, NumberRange
+from datetime import datetime
 
 connection = mysql.connector.connect(host='localhost',
-        database='pythonlogin', user='root', password='')
+        database='pythonlogin', user='root', password='12345')
 
 cursor = connection.cursor()
 app = Flask(__name__)
+app.app_context().push()
 
-app.secret_key = 'oluwatimothyllll2222'
 
 #app.config['MYSQL_HOST'] = 'localhost'
 #app.config['MYSQL_USER'] = 'root'
@@ -22,6 +27,33 @@ app.secret_key = 'oluwatimothyllll2222'
 
 #mysql = MySQL(app)
 
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345@localhost/pythonlogin'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+app.secret_key = '6789'
+
+class Expense(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    category = db.Column(db.String(255), nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    status = db.Column(db.String(50))
+    date = db.Column(db.String(10))
+
+# class ExpenseForm(FlaskForm):
+#     category = StringField('Category', validators=[DataRequired()])
+#     amount = FloatField('Amount', validators=[DataRequired(), NumberRange(min=0.01, message='Amount must be greater than 0')])
+#     status = StringField('Status', validators=[DataRequired()])
+#     date = StringField('Date', validators=[DataRequired()])
+#     submit = SubmitField('Add Expense')
+
+class ExpenseForm(FlaskForm):
+    category = StringField('Category')
+    amount = FloatField('Amount')
+    has_paid = BooleanField('Has Paid')
+    date = DateField('Date', format='%Y-%m-%d')  # Add the format parameter
+    submit = SubmitField('Add Expense')
 
 @app.route('/')
 def home():
@@ -150,21 +182,65 @@ def change_password():
     #return render_template('settings.html', msg=msg)
 
 
-@app.route('/add_expense')
+@app.route('/add_expense', methods=['GET', 'POST'])
 def add_expense():
-    if 'loggedin' in session:
-        return render_template('add_expense.htm')
-    else:
+    if 'loggedin' not in session:
         return redirect(url_for('login'))
 
+    form = ExpenseForm()
+
+    if form.validate_on_submit():
+        try:
+            new_expense = Expense(
+                category=form.category.data,
+                amount=form.amount.data,
+                status='Paid' if form.has_paid.data else 'Not Paid',
+                date=form.date.data.strftime('%Y-%m-%d')
+            )
+
+            db.session.add(new_expense)
+            db.session.commit()
+            
+            response_data = {
+                'success': True,
+                'date': new_expense.date,
+                'category': new_expense.category,
+                'amount': new_expense.amount,
+                'status': new_expense.status,
+            }
+            flash('Expense added successfully!', 'success')
+            # Return the added expense as JSON
+            return jsonify(response_data)
+        
+        except Exception as e:
+            flash(f"Error adding expense: {e}", 'error')
+    else:
+        print("how far")
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"Error in field '{getattr(form, field).label.text}': {error}", 'error')
+
+    #Retrieve expenses from the database
+    expenses = Expense.query.all()
+    print("hello")
+    return render_template('add_expense.html', form=form, expenses=expenses)
 
 @app.route('/expense_list')
 def expense_list():
     if 'loggedin' in session:
-        return render_template('expense_list.html')
+        expenses = Expense.query.all()
+        print("hello")
+        return render_template('expense_list.html', expenses=expenses)
+    
     else:
         return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
+    # Create database tables
+    db.create_all()
+
+
+    print("Database tables created successfully.")
     app.run(debug=True)
+

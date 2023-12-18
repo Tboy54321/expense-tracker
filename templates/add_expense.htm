@@ -583,42 +583,14 @@ body.open-popup::before {
                     </thead>
                     <tbody>
                         <!-- Add rows dynamically based on your expenses data -->
-                        <tr>
-                            <td>2023-12-05</td>
-                            <td>Food</td>
-                            <td>$20.00</td>
-                            <td>Paid</td>
-                        </tr>
-                        <tr>
-                            <td>2023-12-04</td>
-                            <td>Transportation</td>
-                            <td>$15.50</td>
-                            <td>Unpaid</td>
-                        </tr>
-                        <tr>
-                            <td>2023-12-04</td>
-                            <td>Transportation</td>
-                            <td>$15.50</td>
-                            <td>Unpaid</td>
-                        </tr>
-                        <tr>
-                            <td>2023-12-04</td>
-                            <td>Transportation</td>
-                            <td>$15.50</td>
-                            <td>Unpaid</td>
-                        </tr>
-                        <tr>
-                            <td>2023-12-04</td>
-                            <td>Transportation</td>
-                            <td>$15.50</td>
-                            <td>Unpaid</td>
-                        </tr>
-                        <tr>
-                            <td>2023-12-04</td>
-                            <td>Transportation</td>
-                            <td>$15.50</td>
-                            <td>Unpaid</td>
-                        </tr>
+                        {% for expense in expenses %}
+                            <tr>
+                                <td>{{ expense.date }}</td>
+                                <td>{{ expense.category }}</td>
+                                <td>${{ expense.amount }}</td>
+                                <td>{{ expense.status }}</td>
+                            </tr>
+                        {% endfor %}
                         <!-- Add more rows as needed -->
                     </tbody>
                 </table>
@@ -626,21 +598,25 @@ body.open-popup::before {
             <button  onclick="openpopup()">click me</button>
             <div class="popup-container" id="popup-container">
                 <h2>Add New Expense</h2>
-                <form id="expenseForm">
+                <form id="expenseForm" method="POST" action="{{ url_for('add_expense') }}">
                     <div class="close-btn" onclick="closepopup()">X</div>
-                    <label for="date">Date:</label>
-                    <input type="text" id="date" name="date" placeholder="YYYY-MM-DD" required>
-
-                    <label for="category">Category:</label>
-                    <input type="text" id="category" name="category" required>
-        
-                    <label for="amount">Amount:</label>
-                    <input type="text" id="amount" name="amount" required>
-        
-                    <label for="status">Status:</label>
-                    <input type="text" id="status" name="status" required>
                     
-                    <button type="button" onclick="closepopup()">Save</button>
+                    {{ form.hidden_tag() }}  {# Add this line to include CSRF token #}
+                    
+                    <label for="{{ form.date.id }}">Date:</label>
+                    {{ form.date( placeholder="YYYY-MM-DD", required="required") }}
+                
+                    <label for="{{ form.category.id }}">Category:</label>
+                    {{ form.category(class="form-control", required="required") }}
+                
+                    <label for="{{ form.amount.id }}">Amount:</label>
+                    {{ form.amount(class="form-control", required="required") }}
+                
+                    <label for="{{ form.has_paid.id }}">Has Paid:</label>
+                    {{ form.has_paid(class="form-check-input") }}
+                
+                    <button type="button" onclick="closepopup()">Cancel</button>
+                    <button type="submit" onclick="addExpense()">Save</button>
                 </form>
             </div>
         </main>
@@ -649,3 +625,4 @@ body.open-popup::before {
     <script src="../static/add_expense.js"></script>
 </body>
 </html>
+

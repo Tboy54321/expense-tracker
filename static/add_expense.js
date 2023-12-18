@@ -38,3 +38,33 @@ let popup = document.getElementById("popup-container");
         popup.classList.remove("open-popup");
         body.classList.remove("open-popup");
     }
+
+function addExpense() {
+    const form = $('#expenseForm');
+    const formData = form.serialize();
+
+    $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: formData,
+        success: function (data) {
+            // Update the table dynamically with the new expense
+            const newRow = `
+                <tr>
+                    <td>${data.date}</td>
+                    <td>${data.category}</td>
+                    <td>$${data.amount}</td>
+                    <td>${data.status}</td>
+                </tr>
+            `;
+
+            $('table tbody').append(newRow);
+
+            // Clear the form fields
+            form[0].reset();
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
