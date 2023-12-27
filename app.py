@@ -3,6 +3,8 @@ from flask_sqlalchemy import  SQLAlchemy
 #from flask_mysqldb import MySQL
 #import MySQLdb.cursors
 #import MySQLdb.cursors, re, hashlib
+from wtforms import StringField, FloatField, BooleanField, SubmitField, DateField, HiddenField
+from flask_login import UserMixin
 import mysql.connector
 import re
 import hashlib
@@ -11,6 +13,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, FloatField, BooleanField, SubmitField, DateField
 from wtforms.validators import DataRequired, NumberRange
 from datetime import datetime
+from flask_migrate import Migrate
+import bcrypt
 
 connection = mysql.connector.connect(host='localhost',
         database='pythonlogin', user='root', password='12345')
@@ -18,7 +22,6 @@ connection = mysql.connector.connect(host='localhost',
 cursor = connection.cursor()
 app = Flask(__name__)
 app.app_context().push()
-
 
 #app.config['MYSQL_HOST'] = 'localhost'
 #app.config['MYSQL_USER'] = 'root'
@@ -32,7 +35,14 @@ app.app_context().push()
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345@localhost/pythonlogin'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-app.secret_key = '6789'
+app.secret_key = 'oluwatimothyllll2222'
+migrate = Migrate(app, db)
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    password = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    is_active = db.Column(db.Boolean, default=True)
 
 class Expense(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -40,6 +50,8 @@ class Expense(db.Model):
     amount = db.Column(db.Float, nullable=False)
     status = db.Column(db.String(50))
     date = db.Column(db.String(10))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref=db.backref('expenses', lazy=True))
 
 # class ExpenseForm(FlaskForm):
 #     category = StringField('Category', validators=[DataRequired()])
@@ -54,6 +66,8 @@ class ExpenseForm(FlaskForm):
     has_paid = BooleanField('Has Paid')
     date = DateField('Date', format='%Y-%m-%d')  # Add the format parameter
     submit = SubmitField('Add Expense')
+    user_id = HiddenField('User ID')
+
 
 @app.route('/')
 def home():
@@ -66,48 +80,38 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     msg=''
-    # Check if "username" and "password" POST requests exist (user submitted form)
-    if request.method == 'POST':
-        # Create variables for easy access
-        #username = request.form['username']
+    if request.method == 'POST' and 'password' in request.form and 'email' in request.form:
         password = request.form['password']
         email = request.form['email']
-        # Check if account exists using MySQL
-        ##cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        #cursor.execute('SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password,))
-        cursor.execute('SELECT * FROM accounts WHERE email = %s AND password = %s', (email, password,))
-        # Fetch one record and return result
+        cursor.execute('SELECT * FROM user WHERE email = %s', (email,))
         account = cursor.fetchone()
-        # If account exists in accounts table in out database
         if account:
-            if account[3]:
-                # Create session data, we can access this data in other routes
-                session['loggedin'] = True
-                session['id'] = account[0]
-                #session['username'] = account['username']
-                session['email'] = account[2]
-                return redirect(url_for('home'))
-                # Redirect to home page
-                #return 'Logged in successfully!'
+            stored_hashed_password = account[1]
+            if bcrypt.checkpw(password.encode('utf-8'), stored_hashed_password.encode('utf-8')):
+                if account[3]:
+                    session['loggedin'] = True
+                    session['id'] = account[0]
+                    session['email'] = account[2]
+                    return redirect(url_for('home'))
+                else:
+                    msg = 'Account is deactivated'
             else:
-                msg = 'Account is deactivated'
+                msg = 'Incorrect username or password!'
         else:
-            # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username or password!'
-            return render_template('login.html', msg = msg)
+
+        return render_template('login.html', msg = msg)
+
     return render_template('login.html', msg = msg)
-    #return '<h1>WRONG PASSWORD</h1>'
 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def sign_up():
     msg = ''
-    # Check if "username", "password" and "email" POST requests exist (user submitted form)
     if request.method == 'POST' and 'password' in request.form and 'email' in request.form:
-    # Create variables for easy access
         password = request.form['password']
         email = request.form['email']
-        cursor.execute('SELECT * FROM accounts WHERE email = %s', (email,))
+        cursor.execute('SELECT * FROM user WHERE email = %s', (email,))
         account = cursor.fetchone()
         if account:
             msg = 'Account already exists!'
@@ -116,11 +120,8 @@ def sign_up():
         elif not password or not email:
             msg = 'Please fill out the form!'
         else:
-            #hash = password + app.secret_key
-            #hash = hashlib.sha1(hash.encode())
-            #password = hash.hexdigest()
-            #hashed_password = generate_password_hash(password, method='sha256')
-            cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, %s)', (password, email, 1))
+            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+            cursor.execute('INSERT INTO user VALUES (NULL, %s, %s, %s)', (hashed_password, email, 1))
             connection.commit()
             msg = 'You have successfully registered!'
     elif request.method == 'POST':
@@ -147,7 +148,7 @@ def settings():
             msg = change_password()
         elif 'action' in request.form and request.form['action'] == 'deactivate_account':
             user_id = session['id']
-            cursor.execute('UPDATE accounts SET is_active = %s WHERE id = %s', (0, user_id,))
+            cursor.execute('UPDATE user SET is_active = %s WHERE id = %s', (0, user_id,))
             connection.commit()
             session.clear()
 
@@ -163,12 +164,12 @@ def change_password():
         new_password = request.form['new-password']
         confirm_password = request.form['confirm-password']
 
-        cursor.execute('SELECT password FROM accounts WHERE id = %s', (user_id,))
+        cursor.execute('SELECT password FROM user WHERE id = %s', (user_id,))
         current_db_password = cursor.fetchone()[0]
 
         if current_password == current_db_password:
             if new_password == confirm_password:
-                cursor.execute('UPDATE accounts SET password = %s WHERE id = %s', (new_password, user_id))
+                cursor.execute('UPDATE user SET password = %s WHERE id = %s', (new_password, user_id))
                 connection.commit()
                 msg = 'Password updated successfully!'
             else:
@@ -179,7 +180,6 @@ def change_password():
         msg = 'You must be logged in to change your password'
     
     return msg
-    #return render_template('settings.html', msg=msg)
 
 
 @app.route('/add_expense', methods=['GET', 'POST'])
@@ -191,11 +191,13 @@ def add_expense():
 
     if form.validate_on_submit():
         try:
+            user_id = session['id']
             new_expense = Expense(
                 category=form.category.data,
                 amount=form.amount.data,
                 status='Paid' if form.has_paid.data else 'Not Paid',
-                date=form.date.data.strftime('%Y-%m-%d')
+                date=form.date.data.strftime('%Y-%m-%d'),
+                user_id=user_id
             )
 
             db.session.add(new_expense)
@@ -209,7 +211,6 @@ def add_expense():
                 'status': new_expense.status,
             }
             flash('Expense added successfully!', 'success')
-            # Return the added expense as JSON
             return jsonify(response_data)
         
         except Exception as e:
@@ -220,16 +221,16 @@ def add_expense():
             for error in errors:
                 flash(f"Error in field '{getattr(form, field).label.text}': {error}", 'error')
 
-    #Retrieve expenses from the database
-    expenses = Expense.query.all()
+    expenses = Expense.query.filter_by(user_id=session['id']).all()
+    print(expenses)
     print("hello")
-    return render_template('add_expense.html', form=form, expenses=expenses)
+    return render_template('add_expense.htm', form=form, expenses=expenses)
 
 @app.route('/expense_list')
 def expense_list():
     if 'loggedin' in session:
-        expenses = Expense.query.all()
-        print("hello")
+        expenses = Expense.query.filter_by(user_id=session['id']).all()
+        print(expenses)
         return render_template('expense_list.html', expenses=expenses)
     
     else:
@@ -237,7 +238,6 @@ def expense_list():
 
 
 if __name__ == '__main__':
-    # Create database tables
     db.create_all()
 
 

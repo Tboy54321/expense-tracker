@@ -779,13 +779,14 @@
 
             <!-- Expense List Content -->
             <div class="expense-list">
+		{% for expense in expenses  %}
                 <!-- Example Expense Item -->
                 <div class="expense-item">
                     <div class="expense-details">
-                        <span class="category"><i class='bx bx-wallet'></i> Shopping</span>
-                        <span class="date">15-09-2023</span>
+			    <span class="category"><i class='bx bx-wallet'></i>{{ expense.category }}</span>
+			    <span class="date">{{ expense.date }}</span>
                     </div>
-                    <div class="expense-amount">$50.00</div>
+		    <div class="expense-amount">${{ expense.amount }}</div>
                     <button class="delete-button">
                         <i class='bx bx-dots-vertical-rounded'></i>
                     </button>
@@ -794,45 +795,7 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                <div class="expense-item">
-                    <div class="expense-details">
-                        <span class="category"><i class='bx bx-wallet'></i> Shopping</span>
-                        <span class="date">15-09-2023</span>
-                    </div>
-                    <div class="expense-amount">$50.00</div>
-                    <button class="delete-button">
-                        <i class='bx bx-dots-vertical-rounded'></i>
-                    </button>
-                </div>
-                <div class="expense-item">
-                    <div class="expense-details">
-                        <span class="category"><i class='bx bx-wallet'></i> Shopping</span>
-                        <span class="date">15-09-2023</span>
-                    </div>
-                    <div class="expense-amount">$50.00</div>
-                    <button class="delete-button">
-                        <i class='bx bx-trash'></i>
-                    </button>
-                </div>
-                <div class="expense-item">
-                    <div class="expense-details">
-                        <span class="category"><i class='bx bx-wallet'></i> Shopping</span>
-                        <span class="date">15-09-2023</span>
-                    </div>
-                    <div class="expense-amount">$50.00</div>
-                </div>
-                <div class="expense-item">
-                    <div class="expense-details">
-                        <span class="category"><i class='bx bx-wallet'></i> Shopping</span>
-                        <span class="date">15-09-2023</span>
-                    </div>
-                    <div class="expense-amount">$50.00</div>
-                </div>
-                
-
-                
-                </div>
-                
+		{% endfor %}
             </div>
         </main>
     </section>

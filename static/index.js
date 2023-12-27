@@ -5,7 +5,7 @@ allSideMenu.forEach(item=> {
 
 	item.addEventListener('click', function () {
 		allSideMenu.forEach(i=> {
-			i.parentElement.classList.remove('active');
+			 i.parentElement.classList.remove('active');
 		})
 		li.classList.add('active');
 	})
@@ -21,9 +21,9 @@ menuBar.addEventListener('click', function () {
 const switchMode = document.getElementById('switch-mode');
 
 switchMode.addEventListener('change', function () {
-	if(this.checked) {
-		document.body.classList.add('dark');
-	} else {
-		document.body.classList.remove('dark');
-	}
+	 if(this.checked) {
+		 document.body.classList.add('dark');
+	 } else {
+		 document.body.classList.remove('dark');
+	 }
 })
